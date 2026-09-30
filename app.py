@@ -113,8 +113,8 @@ target_url = st.text_input("Enter Healthcare / Clinic Website URL:", "https://ex
 if st.button("Run Medical Audit", type="primary"):
     if not api_key:
         st.error("Please enter your free Groq API Key in the sidebar to run the audit.")
-    elif not target_url:
-        st.warning("Please enter a valid website URL.")
+    elif not target_url or not target_url.startswith(("http://", "https://)):
+        st.warning("Please enter a valid website URL starting with http:// or https://")
     else:
         with st.spinner("Analyzing site structure and extracting local signals..."):
             site_data = scrape_medical_site(target_url)
