@@ -48,7 +48,7 @@ def scrape_medical_site(url):
         title = soup.title.string.strip() if soup.title and soup.title.string else "Missing Title Tag"
         h1 = soup.find('h1').text.strip() if soup.find('h1') else "Missing H1 Tag"
         
-        # Regex search for US/International telephone patterns
+        # Regex search for telephone patterns
         phone_matches = re.findall(r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}', text_content)
         phone = phone_matches[0] if phone_matches else "No Phone Number Detected"
 
@@ -75,7 +75,7 @@ def scrape_medical_site(url):
 # ------------------------------------------------------------------------------
 def generate_medical_schema(data, user_key):
     """
-    Sends scraped local SEO signals to Groq Llama-3 to generate an audit & Schema markup.
+    Sends scraped local SEO signals to Groq Llama 3 to generate an audit & Schema markup.
     """
     client = Groq(api_key=user_key)
     
@@ -100,7 +100,7 @@ def generate_medical_schema(data, user_key):
     """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-20b",
         messages=[{"role": "user", "content": prompt}]
     )
     return response.choices[0].message.content
@@ -136,3 +136,11 @@ if st.button("Run Medical Audit", type="primary"):
                 st.subheader("2. Medical Schema Audit & JSON-LD Output")
                 ai_analysis = generate_medical_schema(site_data, api_key)
                 st.markdown(ai_analysis)
+                
+                # Section 3: Direct Download
+                st.download_button(
+                    label="📥 Download JSON-LD & Audit Report",
+                    data=ai_analysis,
+                    file_name="medical_seo_audit.md",
+                    mime="text/markdown"
+                )
