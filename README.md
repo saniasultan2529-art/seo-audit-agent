@@ -24,3 +24,14 @@ cd seo-audit-agent
 pip install -r requirements.txt
 streamlit run app.py
 """
+## 📐 Design & Engineering Decisions
+
+### Scraper Architecture: BeautifulSoup4 vs. Selenium
+- **Lightweight Overhead:** `BeautifulSoup4` parses static HTML content in milliseconds without requiring heavy browser binaries or ChromeDriver dependencies.
+- **Resource Limits:** Streamlit Cloud has limited RAM resources. Avoiding dynamic browser automation prevents container out-of-memory errors and keeps deployment lightweight.
+
+### Defensive Error Handling & Input Validation
+- **URL Sanitization:** Validates URL prefixes (`http://` / `https://`) before sending HTTP requests to avoid malformed target exceptions.
+- **Resilient Request Headers:** Enforces standard browser `User-Agent` strings and request timeouts (12s) to reduce blocks by security firewalls.
+- **Schema Validation:** Programmatically checks for pre-existing `application/ld+json` script tags before passing site context to the Groq API.
+-
