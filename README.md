@@ -3,7 +3,7 @@
 An AI-powered technical SEO auditor and JSON-LD Schema generator built specifically for healthcare practices, medical clinics, and dental offices.
 
 ## 🚀 Live Demo
-[Access Live Streamlit Web Application](https://seo-audit-agent-24b4jzmhjwt2s4gemhbjzz.streamlit.app)
+[Access Live Streamlit Web Application](https://seo-audit-agent-24b4jzmhjwt2s4gemhkjzz.streamlit.app)
 
 ## 🛠 Tech Stack & Architecture
 - **Language:** Python 3.10+
